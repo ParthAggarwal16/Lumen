@@ -1,3 +1,7 @@
+// wraps entire app 
+// renders sidebar, header and main content
+// handles routing via main switch
+
 function MyButton ({ title } : {title : string}){
     return (
         <button> {title} </button>
