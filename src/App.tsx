@@ -1,14 +1,9 @@
-function MyButton ({ title } : {title : string}){
-    return (
-        <button> {title} </button>
-    );
-}
-
-export default function MyApp(){
-    return (
-        <div>
-            <h1> Welcome to my app </h1>
-            <MyButton title = "I am a button"/>
-        </div>
-    );
+export default function App() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-black">
+      <h1 className="text-4xl font-bold text-blue-500">
+        Tailwind v4 working
+      </h1>
+    </div>
+  );
 }
