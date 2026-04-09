@@ -3,10 +3,11 @@
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex item-centre justify-centre bg-black text-white">
+    <div className="min-h-screen flex item-center justify-centre bg-black text-white">
       <article className="p-6 bg-gray-900 rounded-lg">
         <h1 className="text-2xl font-bold mb-2"> Lumen </h1>
-        <p className="text-grey-400"> Lumen is a web based wallet on top of solana </p>
+        <p className="text-gray-400"> Lumen is a web based wallet on top of solana </p>
+        <button className="mt-4 px-4 py-2 bg-white hover: bg-gray-900 rounded text-black font-semibold">Generate Seed</button>
       </article>
     </div>
   )
