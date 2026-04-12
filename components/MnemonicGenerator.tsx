@@ -13,6 +13,8 @@ const MnemonicGenerator = () => {
     setIsOpen(true)
   }
 
+  const words = mnemonic.split("")
+
   const handleCopy = () => {
     if (mnemonic) {
       return navigator.clipboard.writeText(mnemonic)
