@@ -13,12 +13,18 @@ const MnemonicGenerator = () => {
     setIsOpen(true)
   }
 
+  const handleCopy = () => {
+    if (mnemonic) {
+      return navigator.clipboard.writeText(mnemonic)
+    }
+  }
+
   return (
     <div>
       <button onClick={generateSeed}>
         Generate Seed
       </button>
-      <button onClick={() => mnemonic && setIsOpen(prev => !prev)}></button>
+      <button onClick={() => mnemonic && setIsOpen(prev => !prev)}>{isOpen ? "" : ""}</button>
       {mnemonic && <p className="mt-4 px-4 py-2 bg-white hover:bg-gray-900 rounded text-black font-semibold">{mnemonic}</p>}
     </div>
   )
