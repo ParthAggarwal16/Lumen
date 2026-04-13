@@ -2,6 +2,8 @@
 
 import { generateMnemonic } from "bip39"
 import { useState } from "react"
+import { ChevronDown, ChevronUp } from "lucide-react"
+
 const MnemonicGenerator = () => {
 
   const [mnemonic, setMnemonic] = useState<string>('')
@@ -13,7 +15,7 @@ const MnemonicGenerator = () => {
     setIsOpen(true)
   }
 
-  const words = mnemonic.split("")
+  const words = mnemonic.split(" ")
 
   const handleCopy = () => {
     if (mnemonic) {
@@ -26,8 +28,21 @@ const MnemonicGenerator = () => {
       <button onClick={generateSeed}>
         Generate Seed
       </button>
-      <button onClick={() => mnemonic && setIsOpen(prev => !prev)}>{isOpen ? "" : ""}</button>
-      {mnemonic && <p className="mt-4 px-4 py-2 bg-white hover:bg-gray-900 rounded text-black font-semibold">{mnemonic}</p>}
+
+      <button onClick={() => mnemonic && setIsOpen(prev => !prev)}>
+        {isOpen ? <ChevronDown /> : <ChevronUp />}
+      </button>
+
+      {isOpen && mnemonic && (
+        <div onClick={handleCopy} className="mt-4 p-4 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+          <div className="grid grid-cols-4 gap-2">
+            {words.map((word, index) => (
+              <div key={index} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {word} </div>
+            ))}
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }
