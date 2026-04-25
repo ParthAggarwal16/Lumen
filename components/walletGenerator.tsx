@@ -16,5 +16,14 @@ interface wallet {
 const walletGenerator = () => {
   const [pathTypes, setPathTypes] = useState<string[]>([]);
   const [wallets, setWallets] = useState<wallet[]>([]);
+  const clearAllWallets = () => {
+    //logic to be added
+  }
+  const generateWallets = () => {
+    //logic to be added
+  }
+  const deleteWallets = () => {
+    //logic to be added
+  }
   return ()
 }
