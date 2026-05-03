@@ -23,6 +23,12 @@ const walletGenerator = () => {
   }
   const generateWallets = () => {
     const seed = mnemonicToSeedSync(mnemonic)
+    for (let i = 0; i < 4; i++) {
+      const path = `m/44'/501'/${i}/0'`;
+      const derivedSeed = derivePath(path, seed.toString("hex")).key;
+      const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
+
+    }
     //logic to be added
   }
   const deleteWallets = () => {
