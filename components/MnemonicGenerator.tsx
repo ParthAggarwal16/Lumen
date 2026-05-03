@@ -3,11 +3,13 @@
 import { generateMnemonic } from "bip39"
 import { useState } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
+import { useWalletStore } from "../components/store/walletStore.ts"
 
 const MnemonicGenerator = () => {
 
-  const [mnemonic, setMnemonic] = useState<string>('')
+  const setMnemonic = useWalletStore((state) => state.setMnemonic)
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const mnemonic = useWalletStore((state) => state.mnemonic)
 
   const generateSeed = () => {
     const newMnemonic = generateMnemonic()
