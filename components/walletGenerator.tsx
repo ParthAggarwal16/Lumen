@@ -23,13 +23,22 @@ const walletGenerator = () => {
   const generateWallets = () => {
     const seed = mnemonicToSeedSync(mnemonic)
     const hexSeed = seed.toString('hex')
+
+    const newWallets: wallet[] = []
+
     for (let i = 0; i < 4; i++) {
-      const path = `m/44'/501'/${i}/0'`;
+      const path = `m/44'/501'/0'/0'/${i}`;
       const derivedSeed = derivePath(path, hexSeed).key;
       const secret = Keypair.fromSecretKey(derivedSeed)
+      const publicKey = secret.publicKey.toBase58()
+      const privateKey = Buffer.from(secret.secretKey).toString('hex')
 
+      const wallet = {
+        privateKey, publicKey, path
+      }
+      newWallets.push(wallet)
     }
-    //logic to be added
+    setWallets(newWallets)
   }
   const deleteWallets = () => {
     //logic to be added
