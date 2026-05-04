@@ -1,7 +1,6 @@
 // initialising wallet generator 
 
 import MnemonicGenerator from "../components/MnemonicGenerator.tsx"
-import nacl from "tweetnacl"
 import { Keypair } from "@solana/web3.js"
 import { derivePath } from "ed25519-hd-key"
 import { useWalletStore } from "./store/walletStore.ts"
@@ -23,10 +22,11 @@ const walletGenerator = () => {
   }
   const generateWallets = () => {
     const seed = mnemonicToSeedSync(mnemonic)
+    const hexSeed = seed.toString('hex')
     for (let i = 0; i < 4; i++) {
       const path = `m/44'/501'/${i}/0'`;
-      const derivedSeed = derivePath(path, seed.toString("hex")).key;
-      const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
+      const derivedSeed = derivePath(path, hexSeed).key;
+      const secret = Keypair.fromSecretKey(derivedSeed)
 
     }
     //logic to be added
