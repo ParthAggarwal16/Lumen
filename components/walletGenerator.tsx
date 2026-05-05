@@ -38,10 +38,14 @@ const walletGenerator = () => {
       }
       newWallets.push(wallet)
     }
-    setWallets(newWallets)
+    setWallets([...wallets, ...newWallets])       //append not replace
   }
   const deleteWallets = () => {
     //logic to be added
   }
-  return ()
+  return (
+    <div>
+      <button onClick={generateWallets}> Generate Wallets</button>
+    </div>
+  )
 }
