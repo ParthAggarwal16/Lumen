@@ -6,6 +6,7 @@ import { derivePath } from "ed25519-hd-key"
 import { useWalletStore } from "./store/walletStore.ts"
 import { mnemonicToSeedSync } from "bip39"
 import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
 
 interface wallet {
   publicKey: string
@@ -40,9 +41,11 @@ const walletGenerator = () => {
     }
     setWallets([...wallets, ...newWallets])       //append not replace
   }
+
   const deleteWallets = () => {
     //logic to be added
   }
+
   return (
     <div>
       <button onClick={generateWallets}> Generate Wallets</button>
