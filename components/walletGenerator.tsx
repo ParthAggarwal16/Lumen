@@ -14,10 +14,13 @@ interface wallet {
   path: string
 }
 
-const walletGenerator = () => {
+const WalletGenerator = () => {
   const mnemonic = useWalletStore((state) => state.mnemonic)
   const [pathTypes, setPathTypes] = useState<string[]>([]);
   const [wallets, setWallets] = useState<wallet[]>([]);
+
+  const [visiblePrivateKeys, setVisiblePrivateKeys] = useState<boolean[]>([])
+
   const clearAllWallets = () => {
 
   }
@@ -46,9 +49,21 @@ const walletGenerator = () => {
     //logic to be added
   }
 
+  const toggleVisiblePrivateKeys = (index: number) => {
+    setVisiblePrivateKeys(
+      visiblePrivateKeys.map((visible, i) => (
+        i === index ? !visible : visible
+      ))
+    )
+  }
+
   return (
     <div>
       <button onClick={generateWallets}> Generate Wallets</button>
+
+      {wallets.map((wallet, index) => (
+        <div key={wallet.publicKey}></div>
+      ))}
     </div>
   )
 }
