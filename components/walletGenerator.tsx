@@ -43,6 +43,7 @@ const WalletGenerator = () => {
       newWallets.push(wallet)
     }
     setWallets([...wallets, ...newWallets])       //append not replace
+    setVisiblePrivateKeys([...visiblePrivateKeys, ...Array(newWallets.length).fill(false)])
   }
 
   const deleteWallets = () => {
