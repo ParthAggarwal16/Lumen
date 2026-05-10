@@ -63,8 +63,23 @@ const WalletGenerator = () => {
       <button onClick={generateWallets}> Generate Wallets</button>
 
       {wallets.map((wallet, index) => (
-        <div key={wallet.publicKey}></div>
+        <div key={wallet.publicKey} className="border p-4 my-2">
+
+          <p> Wallet #{index + 1}</p>
+
+          <p> Public: {wallet.publicKey.slice(0, 8)}...</p>
+
+          <button onClick={() => toggleVisiblePrivateKeys(index)}>
+            {visiblePrivateKeys[index] ? <EyeOff /> : <Eye />} privateKey
+          </button>
+
+          {visiblePrivateKeys[index] && (
+            <p> Private: {wallet.privateKey}</p>
+          )}
+
+        </div>
       ))}
+
     </div>
   )
 }
