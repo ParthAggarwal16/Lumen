@@ -83,3 +83,5 @@ const WalletGenerator = () => {
     </div>
   )
 }
+
+export default WalletGenerator
