@@ -22,6 +22,9 @@ const WalletGenerator = () => {
   const [visiblePrivateKeys, setVisiblePrivateKeys] = useState<boolean[]>([])
 
   const generateWallets = () => {
+    if (!mnemonic || mnemonic.trim() === "") {
+      alert("Please Generate a seed ")
+    }
     const seed = mnemonicToSeedSync(mnemonic)
     const hexSeed = seed.toString('hex')
 
