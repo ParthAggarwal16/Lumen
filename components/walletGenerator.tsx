@@ -7,6 +7,7 @@ import { useWalletStore } from "./store/walletStore.ts"
 import { mnemonicToSeedSync } from "bip39"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
+import { useSolanaBalance } from "../src/utils/solanaBalance.ts"
 
 interface wallet {
   publicKey: string
@@ -21,9 +22,6 @@ const WalletGenerator = () => {
 
   const [visiblePrivateKeys, setVisiblePrivateKeys] = useState<boolean[]>([])
 
-  const clearAllWallets = () => {
-
-  }
   const generateWallets = () => {
     const seed = mnemonicToSeedSync(mnemonic)
     const hexSeed = seed.toString('hex')
@@ -46,9 +44,7 @@ const WalletGenerator = () => {
     setVisiblePrivateKeys([...visiblePrivateKeys, ...Array(newWallets.length).fill(false)])
   }
 
-  const deleteWallets = () => {
-    //logic to be added
-  }
+
 
   const toggleVisiblePrivateKeys = (index: number) => {
     setVisiblePrivateKeys(
