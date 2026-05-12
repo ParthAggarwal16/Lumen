@@ -58,23 +58,31 @@ const WalletGenerator = () => {
     <div>
       <button onClick={generateWallets}> Generate Wallets</button>
 
-      {wallets.map((wallet, index) => (
-        <div key={wallet.publicKey} className="border p-4 my-2">
+      {wallets.map((wallet, index) => {
 
-          <p> Wallet #{index + 1}</p>
+        const { loading, balance } = useSolanaBalance(wallet.publicKey)
 
-          <p> Public: {wallet.publicKey.slice(0, 8)}...</p>
+        return (
+          <div key={wallet.publicKey} className="border p-4 my-2">
 
-          <button onClick={() => toggleVisiblePrivateKeys(index)}>
-            {visiblePrivateKeys[index] ? <EyeOff /> : <Eye />} privateKey
-          </button>
+            <p> Wallet #{index + 1}</p>
 
-          {visiblePrivateKeys[index] && (
-            <p> Private: {wallet.privateKey}</p>
-          )}
+            <p> Public: {wallet.publicKey.slice(0, 8)}...</p>
 
-        </div>
-      ))}
+            <button onClick={() => toggleVisiblePrivateKeys(index)}>
+              {visiblePrivateKeys[index] ? <EyeOff /> : <Eye />} privateKey
+            </button>
+
+            <p> Balance: {loading ? `Loading...` : `${balance} SOL`} </p>
+
+            {visiblePrivateKeys[index] && (
+              <p> Private: {wallet.privateKey}</p>
+            )}
+
+          </div>
+
+        )
+      })}
 
     </div>
   )
