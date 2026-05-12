@@ -6,8 +6,7 @@ import { derivePath } from "ed25519-hd-key"
 import { useWalletStore } from "./store/walletStore.ts"
 import { mnemonicToSeedSync } from "bip39"
 import { useState } from "react"
-import { Eye, EyeOff } from "lucide-react"
-import { useSolanaBalance } from "../src/utils/solanaBalance.ts"
+import { WalletCard } from "./walletCard.tsx"
 
 interface wallet {
   publicKey: string
@@ -58,32 +57,16 @@ const WalletGenerator = () => {
     <div>
       <button onClick={generateWallets}> Generate Wallets</button>
 
-      {wallets.map((wallet, index) => {
+      {wallets.map((wallet, index) => (
 
-        const { loading, balance } = useSolanaBalance(wallet.publicKey)
-
-        return (
-          <div key={wallet.publicKey} className="border p-4 my-2">
-
-            <p> Wallet #{index + 1}</p>
-
-            <p> Public: {wallet.publicKey.slice(0, 8)}...</p>
-
-            <button onClick={() => toggleVisiblePrivateKeys(index)}>
-              {visiblePrivateKeys[index] ? <EyeOff /> : <Eye />} privateKey
-            </button>
-
-            <p> Balance: {loading ? `Loading...` : `${balance} SOL`} </p>
-
-            {visiblePrivateKeys[index] && (
-              <p> Private: {wallet.privateKey}</p>
-            )}
-
-          </div>
-
-        )
-      })}
-
+        <WalletCard
+          key={wallet.publicKey}
+          wallet={wallet}
+          index={index}
+          isVisible={visiblePrivateKeys[index]}
+          onToggleVisibility={toggleVisiblePrivateKeys}
+        />
+      ))}
     </div>
   )
 }
