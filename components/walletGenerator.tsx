@@ -28,11 +28,11 @@ const WalletGenerator = () => {
     const newWallets: wallet[] = []
 
     for (let i = 0; i < 4; i++) {
-      const path = `m/44'/501'/0'/0'/${i}`;
+      const path = `m/44'/501'/${i}'/0'`;
       const derivedSeed = derivePath(path, hexSeed).key;
-      const secret = Keypair.fromSecretKey(derivedSeed)
-      const publicKey = secret.publicKey.toBase58()
-      const privateKey = Buffer.from(secret.secretKey).toString('hex')
+      const keypair = Keypair.fromSeed(derivedSeed)
+      const publicKey = keypair.publicKey.toBase58()
+      const privateKey = Buffer.from(keypair.secretKey).toString('hex')
 
       const wallet = {
         privateKey, publicKey, path
