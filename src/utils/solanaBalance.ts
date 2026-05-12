@@ -12,6 +12,7 @@ export function useSolanaBalance(publicKey: string) {
 
   useEffect(() => {
     const fetchSolanaBalance = async () => {
+      setLoading(true)
       const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
 
       const publicKeyObj = new PublicKey(publicKey)
@@ -19,6 +20,7 @@ export function useSolanaBalance(publicKey: string) {
 
       const balanceInSolana = balanceInLamports / LAMPORTS_PER_SOL
       setBalance(balanceInSolana)
+      setLoading(false)
     }
     fetchSolanaBalance()
   }, [publicKey])
