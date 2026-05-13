@@ -24,6 +24,7 @@ const WalletGenerator = () => {
   const generateWallets = () => {
     if (!mnemonic || mnemonic.trim() === "") {
       alert("Please Generate a seed ")
+      return
     }
     const seed = mnemonicToSeedSync(mnemonic)
     const hexSeed = seed.toString('hex')
