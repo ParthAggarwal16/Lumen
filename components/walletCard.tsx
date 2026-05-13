@@ -1,3 +1,4 @@
+import { error } from "console"
 import { useSolanaBalance } from "../src/utils/solanaBalance"
 import { Eye, EyeOff } from "lucide-react"
 
@@ -13,7 +14,7 @@ interface WalletCardProps {
 }
 
 export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: WalletCardProps) {
-  const { loading, balance } = useSolanaBalance(wallet.publicKey)
+  const { loading, balance, error } = useSolanaBalance(wallet.publicKey)
 
   return (
     <div className="border p-4 my-2">
@@ -28,6 +29,8 @@ export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: Wal
 
       <p>Balance: {loading ? "Loading..." : `${balance} SOL`}</p>
       {isVisible && <p>Private: {wallet.privateKey}</p>}
+
+      {error && <p className="text-red-500"> {error}</p>}
 
     </div>
   )
