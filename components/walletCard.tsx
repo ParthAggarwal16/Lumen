@@ -1,4 +1,3 @@
-import { error } from "console"
 import { useSolanaBalance } from "../src/utils/solanaBalance"
 import { Eye, EyeOff } from "lucide-react"
 

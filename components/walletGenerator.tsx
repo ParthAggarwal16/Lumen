@@ -3,22 +3,17 @@
 import MnemonicGenerator from "../components/MnemonicGenerator.tsx"
 import { Keypair } from "@solana/web3.js"
 import { derivePath } from "ed25519-hd-key"
-import { useWalletStore } from "./store/walletStore.ts"
+import { useWalletStore, Wallet } from "./store/walletStore.ts"
 import { mnemonicToSeedSync } from "bip39"
 import { useState } from "react"
 import { WalletCard } from "./walletCard.tsx"
 
-interface wallet {
-  publicKey: string
-  privateKey: string
-  path: string
-}
-
 const WalletGenerator = () => {
   const mnemonic = useWalletStore((state) => state.mnemonic)
   const [pathTypes, setPathTypes] = useState<string[]>([]);
-  const [wallets, setWallets] = useState<wallet[]>([]);
 
+  const wallets = useWalletStore((state) => state.wallets)
+  const setWallets = useWalletStore((state) => state.setWallets)
   const [visiblePrivateKeys, setVisiblePrivateKeys] = useState<boolean[]>([])
 
   const generateWallets = () => {
@@ -29,7 +24,7 @@ const WalletGenerator = () => {
     const seed = mnemonicToSeedSync(mnemonic)
     const hexSeed = seed.toString('hex')
 
-    const newWallets: wallet[] = []
+    const newWallets: Wallet[] = []
 
     for (let i = 0; i < 4; i++) {
       const path = `m/44'/501'/${i}'/0'`;
