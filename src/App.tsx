@@ -2,8 +2,12 @@
 
 import MnemonicGenerator from "../components/MnemonicGenerator.tsx"
 import WalletGenerator from "../components/WalletGenerator.tsx"
+import { useWalletStore } from "../components/store/walletStore.ts"
 
 export default function Home() {
+
+  const wallets = useWalletStore((state) => state.wallets)
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
       <article className="p-6 bg-gray-900 rounded-lg">
@@ -13,9 +17,8 @@ export default function Home() {
           Lumen is a web based wallet on top of solana
         </p>
 
-        <MnemonicGenerator />
+        {wallets.length > 0 ? <WalletGenerator /> : <MnemonicGenerator />}
 
-        <WalletGenerator />
       </article>
     </div>
   )

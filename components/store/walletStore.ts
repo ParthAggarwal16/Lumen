@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 
-interface WalletStore {
+export interface WalletStore {
   mnemonic: string,
   setMnemonic: (m: string) => void,
   wallets: Wallet[],

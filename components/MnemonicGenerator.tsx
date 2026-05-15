@@ -38,8 +38,8 @@ const MnemonicGenerator = () => {
       {isOpen && mnemonic && (
         <div onClick={handleCopy} className="mt-4 p-4 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
           <div className="grid grid-cols-4 gap-2">
-            {words.map((word) => (
-              <div key={word} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {word} </div>
+            {words.map((word, index) => (
+              <div key={index} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {word} </div>
             ))}
           </div>
         </div>
