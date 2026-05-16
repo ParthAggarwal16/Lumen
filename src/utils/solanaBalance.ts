@@ -5,6 +5,7 @@
 import { Connection, LAMPORTS_PER_SOL, clusterApiUrl } from "@solana/web3.js"
 import { useEffect, useState } from "react"
 import { PublicKey } from "@solana/web3.js"
+import { TOKEN_PROGRAM_ID } from "@solana/spl-token"
 
 export function useSolanaBalance(publicKey: string) {
   const [balance, setBalance] = useState<number | null>(null)
@@ -19,7 +20,7 @@ export function useSolanaBalance(publicKey: string) {
         const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
 
         const publicKeyObj = new PublicKey(publicKey)
-        const balanceInLamports = await connection.getBalance(publicKeyObj)
+        const balanceInLamports = await connection.getParsedTokenAccountsByOwner(publicKeyObj, { programId: TOKEN_PROGRAM_ID })
 
         const balanceInSolana = balanceInLamports / LAMPORTS_PER_SOL
         setBalance(balanceInSolana)
