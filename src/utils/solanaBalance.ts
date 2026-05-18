@@ -71,7 +71,7 @@ export function useSolanaBalance(publicKey: string) {
         const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKeyObj, { programId: TOKEN_PROGRAM_ID })
         const USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
         const usdcAccount = tokenAccounts.value.find((account) => account.account.data.parsed.info.mint === USDC_MINT
-          && account.account.data.parsed.info.tokenAmount.amount !== 0)
+          && account.account.data.parsed.info.tokenAmount.uiAmount !== 0)
 
         const usdc = usdcAccount?.account.data.parsed.info.uiAmount
 
