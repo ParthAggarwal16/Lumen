@@ -73,7 +73,7 @@ export function useSolanaBalance(publicKey: string) {
         const usdcAccount = tokenAccounts.value.find((account) => account.account.data.parsed.info.mint === USDC_MINT
           && account.account.data.parsed.info.tokenAmount.uiAmount !== 0)
 
-        const usdc = usdcAccount?.account.data.parsed.info.uiAmount
+        const usdc = usdcAccount?.account.data.parsed.info.tokenAmount.uiAmount
 
         setLoading(false)
       } catch (e) {
