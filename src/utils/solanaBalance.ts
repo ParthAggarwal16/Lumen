@@ -9,6 +9,7 @@ import { TOKEN_PROGRAM_ID } from "@solana/spl-token"
 
 export function useSolanaBalance(publicKey: string) {
   const [balance, setBalance] = useState<number | null>(null)
+  const [usdcBalance, setUsdcBalance] = useState<number | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -69,11 +70,14 @@ export function useSolanaBalance(publicKey: string) {
       }*/
 
         const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKeyObj, { programId: TOKEN_PROGRAM_ID })
-        const USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+
+        //TODO: devnet for now, change it to mainnet later
+        const USDC_MINT = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
         const usdcAccount = tokenAccounts.value.find((account) => account.account.data.parsed.info.mint === USDC_MINT
           && account.account.data.parsed.info.tokenAmount.uiAmount !== 0)
 
         const usdc = usdcAccount?.account.data.parsed.info.tokenAmount.uiAmount
+        setUsdcBalance(usdc ?? 0)
 
         setLoading(false)
       } catch (e) {
