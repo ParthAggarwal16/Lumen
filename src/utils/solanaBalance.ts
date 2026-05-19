@@ -91,5 +91,5 @@ export function useSolanaBalance(publicKey: string) {
     }
     fetchSolanaBalance()
   }, [publicKey])
-  return { balance, loading, error }
+  return { balance, loading, error, usdcBalance }
 }

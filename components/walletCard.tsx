@@ -13,7 +13,7 @@ interface WalletCardProps {
 }
 
 export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: WalletCardProps) {
-  const { loading, balance, error } = useSolanaBalance(wallet.publicKey)
+  const { loading, balance, error, usdcBalance } = useSolanaBalance(wallet.publicKey)
 
   return (
     <div className="border p-4 my-2">
@@ -26,8 +26,10 @@ export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: Wal
         {isVisible ? <EyeOff /> : <Eye />} privateKey
       </button>
 
-      <p>Balance: {loading ? "Loading..." : `${balance} SOL`}</p>
+      <p>Solana: {loading ? "Loading..." : `${balance} SOL`}</p>
       {isVisible && <p>Private: {wallet.privateKey}</p>}
+
+      <p> USDC: {loading ? "loading..." : `${usdcBalance} USDC`} </p>
 
       {error && <p className="text-red-500"> {error}</p>}
 
