@@ -22,6 +22,9 @@ const WalletGenerator = () => {
 
   return (
     <div>
+
+      <button onClick={clearWallets}> Clear Wallets </button>
+
       {wallets.map((wallet, index) => (
         <WalletCard
           key={wallet.publicKey}

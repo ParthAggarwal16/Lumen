@@ -1,6 +1,5 @@
 import { useSolanaBalance } from "../src/utils/solanaBalance"
 import { Eye, EyeOff } from "lucide-react"
-import { useWalletStore } from "./store/walletStore"
 
 interface WalletCardProps {
   wallet: {
@@ -15,7 +14,6 @@ interface WalletCardProps {
 
 export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: WalletCardProps) {
   const { loading, balance, error, usdcBalance } = useSolanaBalance(wallet.publicKey)
-  const clearWallets = useWalletStore((state) => state.clearWallets)
 
   return (
     <div className="border p-4 my-2">
@@ -35,7 +33,6 @@ export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: Wal
 
       {error && <p className="text-red-500"> {error}</p>}
 
-      <button onClick={clearWallets}>Clear Wallets</button>
 
     </div>
   )
