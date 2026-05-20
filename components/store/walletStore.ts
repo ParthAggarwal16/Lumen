@@ -7,7 +7,9 @@ export interface WalletStore {
   mnemonic: string,
   setMnemonic: (m: string) => void,
   wallets: Wallet[],
-  setWallets: (w: Wallet[]) => void
+  setWallets: (w: Wallet[]) => void,
+
+  clearWallets: () => void
 }
 
 export interface Wallet {
@@ -25,6 +27,11 @@ export const useWalletStore = create<WalletStore>()(
 
       wallets: [],
       setWallets: (w: Wallet[]) => set({ wallets: w }),
+
+      clearWallets: () => set({
+        mnemonic: "",
+        wallets: []
+      })
     }),
 
     {
