@@ -1,6 +1,7 @@
 // zustand
 
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface WalletStore {
   mnemonic: string,
@@ -16,9 +17,19 @@ export interface Wallet {
 }
 
 
-export const useWalletStore = create<WalletStore>((set) => ({
-  mnemonic: "",
-  setMnemonic: (m: string) => set({ mnemonic: m }),
-  wallets: [],
-  setWallets: (w: Wallet[]) => set({ wallets: w })
-}))
+export const useWalletStore = create<WalletStore>()(
+  persist(
+    (set) => ({
+      mnemonic: "",
+      setMnemonic: (m: string) => set({ mnemonic: m }),
+
+      wallets: [],
+      setWallets: (w: Wallet[]) => set({ wallets: w }),
+    }),
+
+    {
+      name: "wallet-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+)
