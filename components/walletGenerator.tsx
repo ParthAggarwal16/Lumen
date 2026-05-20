@@ -6,6 +6,7 @@ import { WalletCard } from "./walletCard.tsx"
 
 const WalletGenerator = () => {
   const wallets = useWalletStore((state) => state.wallets)
+  const clearWallets = useWalletStore((state) => state.clearWallets)
 
   const [visiblePrivateKeys, setVisiblePrivateKeys] = useState<boolean[]>(
     Array(wallets.length).fill(false)
