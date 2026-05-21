@@ -32,7 +32,11 @@ const WalletGenerator = () => {
 
       <div className="mt-4">
 
-        <button onClick={() => setIsSeedOpen(prev => !prev)}> {isSeedOpen ? <ChevronUp /> : <ChevronDown />} Your Secret Phrase</button>
+        <button
+          onClick={() => setIsSeedOpen(prev => !prev)} className="flex items-center gap-2">
+
+          <span>Your Secret Phrase</span> {isSeedOpen ? <ChevronUp /> : <ChevronDown />}
+        </button>
         {isSeedOpen && (
           <div className="mt-4 p-4 bg-gray-800 rounded-lg">
             <div className="grid grid-cols-4 gap-2">
