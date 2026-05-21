@@ -3,10 +3,15 @@
 import { useState } from "react"
 import { useWalletStore } from "./store/walletStore.ts"
 import { WalletCard } from "./walletCard.tsx"
+import { ChevronDown, ChevronUp } from "lucide-react"
 
 const WalletGenerator = () => {
   const wallets = useWalletStore((state) => state.wallets)
   const clearWallets = useWalletStore((state) => state.clearWallets)
+  const mnemonicDisplay = useWalletStore((state) => state.mnemonic)
+  const [seedOpen, setSeedOpen] = useState(false)
+
+  const words = mnemonicDisplay.split(" ")
 
   const [visiblePrivateKeys, setVisiblePrivateKeys] = useState<boolean[]>(
     Array(wallets.length).fill(false)
