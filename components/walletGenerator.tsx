@@ -9,7 +9,7 @@ const WalletGenerator = () => {
   const wallets = useWalletStore((state) => state.wallets)
   const clearWallets = useWalletStore((state) => state.clearWallets)
   const mnemonicDisplay = useWalletStore((state) => state.mnemonic)
-  const [seedOpen, setSeedOpen] = useState(false)
+  const [isSeedOpen, setIsSeedOpen] = useState(false)
 
   const words = mnemonicDisplay.split(" ")
 
@@ -29,6 +29,20 @@ const WalletGenerator = () => {
     <div>
 
       <button onClick={clearWallets}> Clear Wallets </button>
+
+      <div className="mt-4">
+
+        <button onClick={() => setIsSeedOpen(prev => !prev)}> {isSeedOpen ? <ChevronUp /> : <ChevronDown />}</button>
+        {isSeedOpen && (
+          <div className="mt-4 p-4 bg-gray-800 rounded-lg">
+            <div className="grid grid-cols-4 gap-2">
+              {words.map((words, index) => (
+                <div key={index} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {words}</div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
 
       {wallets.map((wallet, index) => (
         <WalletCard
