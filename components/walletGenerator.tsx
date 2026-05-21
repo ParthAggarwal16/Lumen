@@ -32,12 +32,12 @@ const WalletGenerator = () => {
 
       <div className="mt-4">
 
-        <button onClick={() => setIsSeedOpen(prev => !prev)}> {isSeedOpen ? <ChevronUp /> : <ChevronDown />}</button>
+        <button onClick={() => setIsSeedOpen(prev => !prev)}> {isSeedOpen ? <ChevronUp /> : <ChevronDown />} Your Secret Phrase</button>
         {isSeedOpen && (
           <div className="mt-4 p-4 bg-gray-800 rounded-lg">
             <div className="grid grid-cols-4 gap-2">
-              {words.map((words, index) => (
-                <div key={index} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {words}</div>
+              {words.map((word, index) => (
+                <div key={index} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {word}</div>
               ))}
             </div>
           </div>
