@@ -33,13 +33,13 @@ const WalletGenerator = () => {
       <div className="mt-4">
 
         <button
-          onClick={() => setIsSeedOpen(prev => !prev)} className="flex items-center gap-2">
+          onClick={() => setIsSeedOpen(prev => !prev)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
 
           <span>Your Secret Phrase</span> {isSeedOpen ? <ChevronUp /> : <ChevronDown />}
         </button>
         {isSeedOpen && (
           <div className="mt-4 p-4 bg-gray-800 rounded-lg">
-            <div className="grid grid-cols-4 gap-2">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
               {words.map((word, index) => (
                 <div key={index} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {word}</div>
               ))}
