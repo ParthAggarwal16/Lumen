@@ -23,7 +23,7 @@ export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: Wal
       <p>Public: {wallet.publicKey.slice(0, 8)}...</p>
 
       <button onClick={() => onToggleVisibility(index)}>
-        {isVisible ? <EyeOff /> : <Eye />} privateKey
+        {isVisible ? <EyeOff /> : <Eye />}
       </button>
 
       <p>Solana: {loading ? "Loading..." : `${balance} SOL`}</p>
