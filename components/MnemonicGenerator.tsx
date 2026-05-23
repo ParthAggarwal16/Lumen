@@ -28,6 +28,24 @@ const MnemonicGenerator = () => {
     setIsOpen(true)
   }
 
+  const importSeed = () => {
+    const trimSeed = inputSeed.trim()
+    if (!trimSeed) {
+      return
+    }
+    const isValid = validateMnemonic(trimSeed)
+    if (!isValid) {
+      alert("Invalid Secret Phrase")
+      return
+    }
+    setMnemonic(trimSeed)
+    const importedWallets = generateWallets(trimSeed)
+    setMnemonic(trimSeed)
+    setWallets(importedWallets)
+    setIsOpen(true)
+    setInputSeed("")
+  }
+
   const words = mnemonic.split(" ")
 
   const handleCopy = () => {
