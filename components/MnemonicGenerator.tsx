@@ -1,6 +1,6 @@
 // this will generate seed and display it 
 
-import { generateMnemonic } from "bip39"
+import { generateMnemonic, validateMnemonic } from "bip39"
 import { useState } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { useWalletStore } from "../components/store/walletStore.ts"
@@ -9,6 +9,8 @@ import { generateWallets } from "../src/utils/generateWallets.ts"
 const MnemonicGenerator = () => {
   const setMnemonic = useWalletStore((state) => state.setMnemonic)
   const setWallets = useWalletStore((state) => state.setWallets)
+
+  const [inputSeed, setInputSeed] = useState("")
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
