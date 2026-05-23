@@ -2,7 +2,6 @@
 
 import { generateMnemonic, validateMnemonic } from "bip39"
 import { useState } from "react"
-import { ChevronDown, ChevronUp } from "lucide-react"
 import { useWalletStore } from "../components/store/walletStore.ts"
 import { generateWallets } from "../src/utils/generateWallets.ts"
 
@@ -56,25 +55,30 @@ const MnemonicGenerator = () => {
 
   return (
     <div>
-      <button onClick={generateSeed}>
-        Generate Seed
-      </button>
+      <div className="flex gap-2">
 
-      <button onClick={() => mnemonic && setIsOpen(prev => !prev)}>
-        {isOpen ? <ChevronDown /> : <ChevronUp />}
-      </button>
+        <button onClick={generateSeed}>
+          Generate Seed
+        </button>
+
+        <input type="text" placeholder="Enter Your Secret Phrase" value={inputSeed}
+          onChange={(e) => setInputSeed(e.target.value)} className="flex-1 p-2 rounded bg-gray-800 text-white" />
+
+        <button onClick={importSeed}> Import Seed </button>
+
+      </div>
 
       {isOpen && mnemonic && (
         <div
           onClick={handleCopy}
-          className="mt-4 p-4 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700"
-        >
+          className="mt-4 p-4 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+
           <div className="grid grid-cols-4 gap-2">
             {words.map((word, index) => (
               <div
                 key={index}
-                className="p-2 bg-gray-900 rounded text-white text-center text-sm"
-              >
+                className="p-2 bg-gray-900 rounded text-white text-center text-sm">
+
                 {word}
               </div>
             ))}
