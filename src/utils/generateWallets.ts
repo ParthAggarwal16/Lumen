@@ -3,14 +3,19 @@ import { derivePath } from "ed25519-hd-key"
 import { mnemonicToSeedSync } from "bip39"
 import type { Wallet } from "../../components/store/walletStore"
 
-export function generateWallets(mnemonic: string): Wallet[] {
+export function generateWallets(
+  mnemonic: string,
+  startIndex = 0,
+  count = 1
+): Wallet[] {
+
   const seed = mnemonicToSeedSync(mnemonic)
 
   const hexSeed = seed.toString("hex")
 
   const wallets: Wallet[] = []
 
-  for (let i = 0; i < 4; i++) {
+  for (let i = startIndex; i < startIndex + count; i++) {
     const path = `m/44'/501'/${i}'/0'`
 
     const derivedSeed = derivePath(path, hexSeed).key

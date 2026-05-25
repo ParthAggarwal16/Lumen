@@ -4,11 +4,14 @@ import { useState } from "react"
 import { useWalletStore } from "./store/walletStore.ts"
 import { WalletCard } from "./walletCard.tsx"
 import { ChevronDown, ChevronUp } from "lucide-react"
+import { generateWallets } from "../src/utils/generateWallets.ts"
 
 const WalletGenerator = () => {
   const wallets = useWalletStore((state) => state.wallets)
   const clearWallets = useWalletStore((state) => state.clearWallets)
   const mnemonicDisplay = useWalletStore((state) => state.mnemonic)
+  const addWallets = useWalletStore((state) => state.addWallets)
+
   const [isSeedOpen, setIsSeedOpen] = useState(false)
 
   const words = mnemonicDisplay.split(" ")
@@ -25,10 +28,18 @@ const WalletGenerator = () => {
     )
   }
 
+  const handleAddWallet = () => {
+    const newWallet = generateWallets(mnemonicDisplay, wallets.length, 1)[0]
+    addWallets(newWallet)
+    setVisiblePrivateKeys([...visiblePrivateKeys, false])
+  }
+
   return (
     <div>
 
       <button onClick={clearWallets}> Clear Wallets </button>
+
+      <button onClick={handleAddWallet}> Add Wallet</button>
 
       <div className="mt-4">
 
