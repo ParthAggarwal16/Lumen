@@ -37,7 +37,7 @@ const MnemonicGenerator = () => {
       alert("Invalid Secret Phrase")
       return
     }
-    setMnemonic(trimSeed)
+
     const importedWallets = generateWallets(trimSeed)
     setMnemonic(trimSeed)
     setWallets(importedWallets)

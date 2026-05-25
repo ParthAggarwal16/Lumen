@@ -10,6 +10,7 @@ export interface WalletStore {
   setWallets: (w: Wallet[]) => void,
 
   clearWallets: () => void
+  addWallets: (wallet: Wallet) => void
 }
 
 export interface Wallet {
@@ -31,7 +32,10 @@ export const useWalletStore = create<WalletStore>()(
       clearWallets: () => set({
         mnemonic: "",
         wallets: []
-      })
+      }),
+      addWallets: (wallet: Wallet) => set((state) => ({
+        wallets: [...state.wallets, wallet]
+      }))
     }),
 
     {
