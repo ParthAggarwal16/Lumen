@@ -12,6 +12,7 @@ const MnemonicGenerator = () => {
   const [inputSeed, setInputSeed] = useState("")
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false)
 
   const mnemonic = useWalletStore((state) => state.mnemonic)
 
