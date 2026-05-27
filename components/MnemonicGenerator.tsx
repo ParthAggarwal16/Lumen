@@ -62,12 +62,35 @@ const MnemonicGenerator = () => {
           Generate Seed
         </button>
 
-        <input type="text" placeholder="Enter Your Secret Phrase" value={inputSeed}
-          onChange={(e) => setInputSeed(e.target.value)} className="flex-1 p-2 rounded bg-gray-800 text-white" />
-
-        <button onClick={importSeed}> Import Seed </button>
+        <button onClick={() => { setIsImportModalOpen(true) }}> Import Seed </button>
 
       </div>
+      {isImportModalOpen && (
+
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
+
+          <div className="bg-gray-900 p-6 rounded-lg w-full max-w-lg">
+
+            <h2 className="text-xl font-semibold mb-4">Import Secret Phase</h2>
+
+            <input type="text" placeholder="Enter Your Secret Phase"
+              value={inputSeed} onChange={(e) => setInputSeed(e.target.value)}
+              className="w-full p-2 rounded bg-gray-800 text-white" />
+
+            <div className="flex justify-end gap-2 mt-4">
+
+              <button onClick={() => { setIsImportModalOpen(false) }}> Cancel </button>
+              <button onClick={() => {
+                importSeed()
+                setIsImportModalOpen(false)
+              }}> Import </button>
+
+            </div>
+
+
+          </div>
+        </div>
+      )}
 
       {isOpen && mnemonic && (
         <div
