@@ -48,11 +48,7 @@ const MnemonicGenerator = () => {
 
   const words = mnemonic.split(" ")
 
-  const handleCopy = () => {
-    if (mnemonic) {
-      return navigator.clipboard.writeText(mnemonic)
-    }
-  }
+
 
   return (
     <div>
@@ -94,7 +90,6 @@ const MnemonicGenerator = () => {
 
       {isOpen && mnemonic && (
         <div
-          onClick={handleCopy}
           className="mt-4 p-4 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
 
           <div className="grid grid-cols-4 gap-2">
