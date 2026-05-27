@@ -28,6 +28,12 @@ const WalletGenerator = () => {
     )
   }
 
+  const handleCopy = () => {
+    if (mnemonicDisplay) {
+      return navigator.clipboard.writeText(mnemonicDisplay)
+    }
+  }
+
   const handleAddWallet = () => {
     const newWallet = generateWallets(mnemonicDisplay, wallets.length, 1)[0]
     addWallets(newWallet)
@@ -49,7 +55,7 @@ const WalletGenerator = () => {
           <span>Your Secret Phrase</span> {isSeedOpen ? <ChevronUp /> : <ChevronDown />}
         </button>
         {isSeedOpen && (
-          <div className="mt-4 p-4 bg-gray-800 rounded-lg">
+          <div onClick={handleCopy} className="mt-4 p-4 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
               {words.map((word, index) => (
                 <div key={index} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {word}</div>
