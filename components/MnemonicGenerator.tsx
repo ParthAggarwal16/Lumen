@@ -4,6 +4,7 @@ import { generateMnemonic, validateMnemonic } from "bip39"
 import { useState } from "react"
 import { useWalletStore } from "../components/store/walletStore.ts"
 import { generateWallets } from "../src/utils/generateWallets.ts"
+import { Button } from "./button.tsx"
 
 const MnemonicGenerator = () => {
   const setMnemonic = useWalletStore((state) => state.setMnemonic)
@@ -54,9 +55,7 @@ const MnemonicGenerator = () => {
     <div>
       <div className="flex gap-2">
 
-        <button onClick={generateSeed}>
-          Generate Seed
-        </button>
+        <Button variant="primary" onClick={generateSeed}>Create New Wallet</Button>
 
         <button onClick={() => { setIsImportModalOpen(true) }}> Import Seed </button>
 
