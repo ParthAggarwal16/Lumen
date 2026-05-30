@@ -4,7 +4,7 @@ import { generateMnemonic, validateMnemonic } from "bip39"
 import { useState } from "react"
 import { useWalletStore } from "../components/store/walletStore.ts"
 import { generateWallets } from "../src/utils/generateWallets.ts"
-import { Button } from "./button.tsx"
+import Button from "./button.tsx"
 
 const MnemonicGenerator = () => {
   const setMnemonic = useWalletStore((state) => state.setMnemonic)
@@ -53,32 +53,32 @@ const MnemonicGenerator = () => {
 
   return (
     <div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
 
-        <Button variant="primary" onClick={generateSeed}>Create New Wallet</Button>
+        <Button onClick={generateSeed}>Create New Wallet</Button>
 
-        <button onClick={() => { setIsImportModalOpen(true) }}> Import Seed </button>
+        <Button onClick={() => { setIsImportModalOpen(true) }}> Import Seed </Button>
 
       </div>
       {isImportModalOpen && (
 
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
 
-          <div className="bg-gray-900 p-6 rounded-lg w-full max-w-lg">
+          <div className="bg-lumen-surface border border-lumen-border p-6 rounded-2x1 w-full max-w-lg shadow-2x1">
 
-            <h2 className="text-xl font-semibold mb-4">Import Secret Phase</h2>
+            <h2 className="text-xl font-plex mb-4">Import Secret Phrase</h2>
 
-            <input type="text" placeholder="Enter Your Secret Phase"
+            <input type="text" placeholder="Enter Your Secret Phrase"
               value={inputSeed} onChange={(e) => setInputSeed(e.target.value)}
-              className="w-full p-2 rounded bg-gray-800 text-white" />
+              className="w-full p-3 rounded-lg bg-lumen-bg border border-lumen-border text-lumen-text font-plex outline-none focus:border-lumen-text transition-colors" />
 
             <div className="flex justify-end gap-2 mt-4">
 
-              <button onClick={() => { setIsImportModalOpen(false) }}> Cancel </button>
-              <button onClick={() => {
+              <Button onClick={() => { setIsImportModalOpen(false) }}> Cancel </Button>
+              <Button onClick={() => {
                 importSeed()
                 setIsImportModalOpen(false)
-              }}> Import </button>
+              }}> Import </Button>
 
             </div>
 
@@ -89,13 +89,13 @@ const MnemonicGenerator = () => {
 
       {isOpen && mnemonic && (
         <div
-          className="mt-4 p-4 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
+          className="mt-4 p-4 bg-lumen-surface border border-lumen-border rounded-lg cursor-pointer hover:bg-lumen-hover transition-colors">
 
           <div className="grid grid-cols-4 gap-2">
             {words.map((word, index) => (
               <div
                 key={index}
-                className="p-2 bg-gray-900 rounded text-white text-center text-sm">
+                className="p-2 bg-lumen-bg border border-lumen-border rounded-md text-lumen-text text-center text-sm font-plex">
 
                 {word}
               </div>

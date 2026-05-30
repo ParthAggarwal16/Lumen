@@ -5,6 +5,7 @@ import { useWalletStore } from "./store/walletStore.ts"
 import { WalletCard } from "./walletCard.tsx"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { generateWallets } from "../src/utils/generateWallets.ts"
+import Button from "./button.tsx"
 
 const WalletGenerator = () => {
   const wallets = useWalletStore((state) => state.wallets)
