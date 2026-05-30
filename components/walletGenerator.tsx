@@ -42,39 +42,46 @@ const WalletGenerator = () => {
   }
 
   return (
-    <div>
+    <div className="w-full">
 
-      <button onClick={clearWallets}> Clear Wallets </button>
+      <div className="flex items-center justify-between mb-6">
 
-      <button onClick={handleAddWallet}> Add Wallet</button>
-
-      <div className="mt-4">
-
-        <button
-          onClick={() => setIsSeedOpen(prev => !prev)} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-
-          <span>Your Secret Phrase</span> {isSeedOpen ? <ChevronUp /> : <ChevronDown />}
+        <button onClick={() => setIsSeedOpen(prev => !prev)} className="flex items-center gap-2 font-plex text-lumen-text">
+          <span>Your Secret Phrase</span>
+          {isSeedOpen ? <ChevronUp /> : <ChevronDown />}
         </button>
-        {isSeedOpen && (
-          <div onClick={handleCopy} className="mt-4 p-4 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
-              {words.map((word, index) => (
-                <div key={index} className="p-2 bg-gray-900 rounded text-white text-center text-sm"> {word}</div>
-              ))}
-            </div>
-          </div>
-        )}
+
+        <div className="flex gap-3">
+          <Button onClick={handleAddWallet}>Add Wallet</Button>
+          <Button onClick={clearWallets}>Clear Wallets</Button>
+        </div>
+
       </div>
 
-      {wallets.map((wallet, index) => (
-        <WalletCard
-          key={wallet.publicKey}
-          wallet={wallet}
-          index={index}
-          isVisible={visiblePrivateKeys[index]}
-          onToggleVisibility={toggleVisiblePrivateKeys}
-        />
-      ))}
+      {isSeedOpen && (
+        <div onClick={handleCopy} className="mb-6 p-4 bg-lumen-bg border border-lumen-border rounded-2xl cursor-pointer hover:bg-lumen-hover transition-colors">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
+            {words.map((word, index) => (
+              <div key={index} className="p-2 bg-lumen-bg border border-lumen-border rounded-lg text-lumen-text text-center text-sm font-plex">
+                {word}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {wallets.map((wallet, index) => (
+          <WalletCard
+            key={wallet.publicKey}
+            wallet={wallet}
+            index={index}
+            isVisible={visiblePrivateKeys[index]}
+            onToggleVisibility={toggleVisiblePrivateKeys}
+          />
+        ))}
+      </div>
+
     </div>
   )
 }
