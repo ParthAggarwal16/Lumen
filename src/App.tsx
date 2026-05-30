@@ -3,6 +3,7 @@
 import MnemonicGenerator from "../components/MnemonicGenerator.tsx"
 import WalletGenerator from "../components/WalletGenerator.tsx"
 import { useWalletStore } from "../components/store/walletStore.ts"
+import { motion } from "framer-motion"
 
 export default function Home() {
 
@@ -12,13 +13,17 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white">
       <div className="p-6">
         {wallets.length === 0 && (
-          <>
-            <h1 className="text-2xl font-bold mb-2">Lumen</h1>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-6xl font-black tracking-tight text-lumen-text font-plex mb-4"> Lumen </h1>
 
-            <p className="text-gray-400 mb-4">
-              Lumen is a web based wallet on top of solana
+            <p className="text-xl text-zinc-400 max-w-xl leading-relaxed italic mb-4">
+              A web based crypto wallet built on top of solana
             </p>
-          </>
+          </motion.div>
         )}
         {wallets.length > 0 ? <WalletGenerator /> : <MnemonicGenerator />}
       </div>

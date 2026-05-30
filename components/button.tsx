@@ -23,8 +23,11 @@ export default function Button({
         font-plex
         font-normal
         hover:bg-lumen-hover
-        transition-colors
+        transition-all
         duration-200
+        ease-out
+        active:scale-95
+        active:opacity-80
         whitespace-nowrap
         ${className}
       `}
