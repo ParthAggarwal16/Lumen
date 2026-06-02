@@ -9,21 +9,28 @@ export async function sendSol(
   recepeintAddress: string,
   amount: number
 ) {
-  const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
-  const recepeintPublicKey = new PublicKey(recepeintAddress)
+  try {
+    const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
+    const recepeintPublicKey = new PublicKey(recepeintAddress)
 
-  // Transaction code here:
-  const transaction = new Transaction().add(
-    SystemProgram.transfer({
-      fromPubkey: senderKeypair.publicKey,
-      toPubkey: recepeintPublicKey,
-      lamports: amount * LAMPORTS_PER_SOL
-    })
-  )
+    // Transaction code here:
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: senderKeypair.publicKey,
+        toPubkey: recepeintPublicKey,
+        lamports: amount * LAMPORTS_PER_SOL
+      })
+    )
 
-  //signature:
-  const signature = await sendAndConfirmTransaction(
-    connection, transaction, [senderKeypair]
-  )
-  return signature
+    //signature:
+    const signature = await sendAndConfirmTransaction(
+      connection, transaction, [senderKeypair]
+    )
+    return signature
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message)
+    }
+    throw new Error("Failed to send SOL")
+  }
 }
