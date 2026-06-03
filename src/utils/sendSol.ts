@@ -11,7 +11,12 @@ export async function sendSol(
 ) {
   try {
     const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
+
+    if (!PublicKey.isOnCurve(recepeintAddress)) {
+      throw new Error("Invalid Solana Address")
+    }
     const recepeintPublicKey = new PublicKey(recepeintAddress)
+
     const balance = await connection.getBalance(senderKeypair.publicKey)
     if (LAMPORTS_PER_SOL * amount > balance) {
       throw new Error("Insufficient Solana balance")
