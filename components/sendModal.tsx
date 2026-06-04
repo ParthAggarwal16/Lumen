@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useSolPrice } from "../src/hooks/fetchusd.ts"
-import { Keypair } from "@solana/web3.js"
+import { Keypair, PublicKey } from "@solana/web3.js"
 import { sendSol } from "../src/utils/sendSol.ts"
 
 interface SendModalProps {
@@ -15,7 +15,7 @@ export default function SendModal({ wallet, onclose }: SendModalProps) {
   const [recipient, setrecipient] = useState("")
   const [amount, setAmount] = useState("")
   const [error, setError] = useState("")
-  const [loading, setLoading] = useSolPrice(false)
+  const [loading, setLoading] = useState(false)
   const solPrice = useSolPrice()
 
   const usdValue = solPrice && amount ? (solPrice * Number(amount)).toFixed(2) : "0.00"
@@ -24,6 +24,14 @@ export default function SendModal({ wallet, onclose }: SendModalProps) {
     try {
       if (!recipient || !amount) {
         setError("Please fill the required field")
+        return
+      }
+      if (!PublicKey.isOnCurve(recipient)) {
+        setError("Invalid Solana Address")
+        return
+      }
+      if (Number(amount) <= 0) {
+        setError("Amount must be greater than 0")
         return
       }
       setLoading(true)
@@ -41,6 +49,7 @@ export default function SendModal({ wallet, onclose }: SendModalProps) {
       onclose()
 
     } catch (error) {
+      setLoading(false)
       if (error instanceof Error) {
         setError(error.message)
       }
