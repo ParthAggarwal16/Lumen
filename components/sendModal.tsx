@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { useSolPrice } from "../src/hooks/fetchusd.ts"
+import { Keypair } from "@solana/web3.js"
+import { sendSol } from "../src/utils/sendSol.ts"
 
 interface SendModalProps {
   wallet: {
@@ -19,5 +21,16 @@ export default function SendModal({ wallet, onclose }: SendModalProps) {
   const usdValue = solPrice && amount ? (solPrice * Number(amount)).toFixed(2) : "0.00"
   const handleSend = async () => {
     setLoading(true)
+
+    const secretKey = Uint8Array.from(Buffer.from(wallet.privateKey, "hex"))
+    const senderKeypair = Keypair.fromSecretKey(secretKey)
+    const signature = await sendSol(
+      senderKeypair,
+      recipient,
+      Number(amount)
+    )
+    console.log(signature)
+    setLoading(false)
+    onclose()
   }
 }
