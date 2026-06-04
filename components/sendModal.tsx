@@ -19,18 +19,34 @@ export default function SendModal({ wallet, onclose }: SendModalProps) {
   const solPrice = useSolPrice()
 
   const usdValue = solPrice && amount ? (solPrice * Number(amount)).toFixed(2) : "0.00"
-  const handleSend = async () => {
-    setLoading(true)
 
-    const secretKey = Uint8Array.from(Buffer.from(wallet.privateKey, "hex"))
-    const senderKeypair = Keypair.fromSecretKey(secretKey)
-    const signature = await sendSol(
-      senderKeypair,
-      recipient,
-      Number(amount)
-    )
-    console.log(signature)
-    setLoading(false)
-    onclose()
+  const handleSend = async () => {
+    try {
+      if (!recipient || !amount) {
+        setError("Please fill the required field")
+        return
+      }
+      setLoading(true)
+
+      const secretKey = Uint8Array.from(Buffer.from(wallet.privateKey, "hex"))
+      const senderKeypair = Keypair.fromSecretKey(secretKey)
+      const signature = await sendSol(
+        senderKeypair,
+        recipient,
+        Number(amount)
+      )
+
+      console.log(signature)
+      setLoading(false)
+      onclose()
+
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      }
+      else {
+        setError("Transaction Failed")
+      }
+    }
   }
 }
