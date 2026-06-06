@@ -5,6 +5,7 @@ import { useState } from "react"
 import { useWalletStore } from "../components/store/walletStore.ts"
 import { generateWallets } from "../src/utils/generateWallets.ts"
 import Button from "./button.tsx"
+import { toast } from "sonner"
 
 const MnemonicGenerator = () => {
   const setMnemonic = useWalletStore((state) => state.setMnemonic)
@@ -25,6 +26,7 @@ const MnemonicGenerator = () => {
     setMnemonic(newMnemonic)
 
     setWallets(wallets)
+    toast.success("Wallet Generated")
 
     setIsOpen(true)
   }
@@ -36,13 +38,14 @@ const MnemonicGenerator = () => {
     }
     const isValid = validateMnemonic(trimSeed)
     if (!isValid) {
-      alert("Invalid Secret Phrase")
+      toast.error("Invalid Secret Phrase")
       return
     }
 
     const importedWallets = generateWallets(trimSeed)
     setMnemonic(trimSeed)
     setWallets(importedWallets)
+    toast.success("Wallets Imported")
     setIsOpen(true)
     setInputSeed("")
   }

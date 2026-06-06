@@ -6,6 +6,7 @@ import { WalletCard } from "./walletCard.tsx"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { generateWallets } from "../src/utils/generateWallets.ts"
 import Button from "./button.tsx"
+import { toast } from "sonner"
 
 const WalletGenerator = () => {
   const wallets = useWalletStore((state) => state.wallets)
@@ -31,7 +32,8 @@ const WalletGenerator = () => {
 
   const handleCopy = () => {
     if (mnemonicDisplay) {
-      return navigator.clipboard.writeText(mnemonicDisplay)
+      navigator.clipboard.writeText(mnemonicDisplay)
+      toast.success("Seed Phrase Copied")
     }
   }
 

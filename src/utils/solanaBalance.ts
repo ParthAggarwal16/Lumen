@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import { PublicKey } from "@solana/web3.js"
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token"
 
-export function useSolanaBalance(publicKey: string) {
+export function useSolanaBalance(publicKey: string, refreshKey: number) {
   const [balance, setBalance] = useState<number | null>(null)
   const [usdcBalance, setUsdcBalance] = useState<number | null>(null)
   const [loading, setLoading] = useState(false)
@@ -90,6 +90,6 @@ export function useSolanaBalance(publicKey: string) {
       }
     }
     fetchSolanaBalance()
-  }, [publicKey])
+  }, [publicKey, refreshKey])
   return { balance, loading, error, usdcBalance }
 }
