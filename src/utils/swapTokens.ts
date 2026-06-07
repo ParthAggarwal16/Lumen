@@ -3,14 +3,23 @@
 //Builds & sends transaction
 //Returns signature or error
 
-import { clusterApiUrl, Connection } from "@solana/web3.js";
+import { clusterApiUrl, Connection, Keypair } from "@solana/web3.js";
 
 const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
 const SOL_MINT = "So11111111111111111111111111111111111111112"
 const USDC_MINT = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
 
-interface swapParams {
+interface SwapParams {
+  wallet: Keypair
   account: string,
-  inputToken: "SOL" | "USDC",
-  outputToken: "USDC" | "SOL"
+  fromToken: "SOL" | "USDC",
+  toToken: "USDC" | "SOL",
+  amount: number
+}
+
+export async function swap({ account, wallet, amount, fromToken, toToken }: SwapParams) {
+  const inputMint = fromToken === "SOL" ? SOL_MINT : USDC_MINT
+  const outputMint = toToken === "SOL" ? SOL_MINT : USDC_MINT
+
+  const amountInSmallestUnits = fromToken === "SOL" ? amount * 100_000_000 : amount * 100_000
 }
