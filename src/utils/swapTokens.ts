@@ -22,4 +22,9 @@ export async function swap({ account, wallet, amount, fromToken, toToken }: Swap
   const outputMint = toToken === "SOL" ? SOL_MINT : USDC_MINT
 
   const amountInSmallestUnits = fromToken === "SOL" ? amount * 100_000_000 : amount * 100_000
+
+  const qouteResponse = await fetch("https://quote-api.jup.ag/v6/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountInSmallestUnit}&slippageBps=50")
+  const qouteData = await qouteResponse.json()
+  // now i get swap transaction somehow
+
 }
