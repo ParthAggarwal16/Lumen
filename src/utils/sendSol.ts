@@ -10,7 +10,7 @@ export async function sendSol(
   amount: number
 ) {
   try {
-    const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
+    const connection = new Connection(import.meta.env.VITE_HELIUS_RPC || clusterApiUrl("devnet"), "confirmed")
 
     if (!PublicKey.isOnCurve(recepeintAddress)) {
       throw new Error("Invalid Solana Address")

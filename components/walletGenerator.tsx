@@ -41,6 +41,7 @@ const WalletGenerator = () => {
     const newWallet = generateWallets(mnemonicDisplay, wallets.length, 1)[0]
     addWallets(newWallet)
     setVisiblePrivateKeys([...visiblePrivateKeys, false])
+    toast.success("New Wallet Added")
   }
 
   return (
@@ -55,7 +56,10 @@ const WalletGenerator = () => {
 
         <div className="flex gap-3">
           <Button onClick={handleAddWallet}>Add Wallet</Button>
-          <Button onClick={clearWallets}>Clear Wallets</Button>
+          <Button onClick={() => {
+            clearWallets()
+            toast.success("All Wallets cleared")
+          }}> Clear Wallets</Button>
         </div>
 
       </div>
