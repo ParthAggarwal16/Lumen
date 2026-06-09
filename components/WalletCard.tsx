@@ -2,7 +2,7 @@ import { useSolanaBalance } from "../src/utils/solanaBalance"
 import { Eye, EyeOff } from "lucide-react"
 import Button from "./button"
 import { useEffect, useState } from "react"
-import SendModal from "../components/sendModal.tsx"
+import SendModal from "../components/SendModal.tsx"
 import { toast } from "sonner"
 
 interface WalletCardProps {

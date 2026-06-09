@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useWalletStore } from "./store/walletStore.ts"
-import { WalletCard } from "./walletCard.tsx"
+import { WalletCard } from "./WalletCard.tsx"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { generateWallets } from "../src/utils/generateWallets.ts"
 import Button from "./button.tsx"
