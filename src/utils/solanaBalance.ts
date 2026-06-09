@@ -18,7 +18,7 @@ export function useSolanaBalance(publicKey: string, refreshKey: number) {
 
       try {
         setLoading(true)
-        const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
+        const connection = new Connection(import.meta.env.VITE_HELIUS_RPC || clusterApiUrl("devnet"), "confirmed")
 
         // only for solana, dont know if i should just try to fetch all of the required tokens from "getTokenAccountsByOwner",
         // i know that solana native and usdc isnt, but dont know if this is a good practice or not
@@ -81,11 +81,15 @@ export function useSolanaBalance(publicKey: string, refreshKey: number) {
 
         setLoading(false)
       } catch (e) {
+        setLoading(false)
         if (e instanceof Error) {
-          setError(e.message)
-          setLoading(false)
+          if (e.message.includes("429")) {
+            setError("Rate limited. Please wait a moment and try again.")
+          } else {
+            setError(e.message)
+          }
         } else {
-          setError("unknown error")
+          setError("Unknown error")
         }
       }
     }

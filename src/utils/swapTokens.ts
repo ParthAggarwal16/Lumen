@@ -3,9 +3,8 @@
 //Builds & sends transaction
 //Returns signature or error
 
-import { clusterApiUrl, Connection, Keypair, VersionedTransaction } from "@solana/web3.js";
+import { Keypair, VersionedTransaction } from "@solana/web3.js";
 
-const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
 
 export const SOL_MINT = "So11111111111111111111111111111111111111112"
 export const USDC_MINT = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
@@ -23,47 +22,42 @@ export async function swap({ wallet, amount, fromToken, toToken }: SwapParams) {
 
   const amountInSmallestUnit = fromToken === "SOL" ? amount * 1_000_000_000 : amount * 1_000_000
 
-  const qouteResponse = await fetch(`https://lite-api.jup.ag/swap/v1/quote?inputMint=${inputMint}&outputMint=${outputMint}&amount=${amountInSmallestUnit}&slippageBps=50`)
-
-  if (!qouteResponse.ok) {
-    throw new Error("Failed to fetch quote")
-  }
-
-  const qouteData = await qouteResponse.json()
-
-  const swapResopnse = await fetch("https://lite-api.jup.ag/swap/v1/swap", {
+  // Call your backend instead of Jupiter directly
+  const orderResponse = await fetch("http://localhost:3001/api/swap", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      quoteResponse: qouteData,
-      userPublicKey: wallet.publicKey.toBase58(),
-      wrapAndUnwrapSol: true,
-      dynamicComputeUnitLimit: true,
-      prioritizationFeeLamports: "auto"
+      inputMint,
+      outputMint,
+      amount: amountInSmallestUnit,
+      userPublicKey: wallet.publicKey.toBase58()
+
     })
   })
 
-  if (!swapResopnse.ok) {
-    throw new Error("Failed to build swap transaction")
+  if (!orderResponse.ok) {
+    throw new Error("Failed to fetch quote")
   }
 
-  const swapData = await swapResopnse.json()
+  const orderData = await orderResponse.json()
 
-  const transactionBuffer = Buffer.from(swapData.swapTransaction, "base64")
-
+  const transactionBuffer = Buffer.from(orderData.swapTransaction, "base64")
   const transaction = VersionedTransaction.deserialize(transactionBuffer)
 
   transaction.sign([wallet])
 
-  const signature = await connection.sendTransaction(transaction)
-
-  const latestBlockhash = await connection.getLatestBlockhash()
-
-  await connection.confirmTransaction({
-    signature: signature,
-    blockhash: latestBlockhash.blockhash,
-    lastValidBlockHeight: latestBlockhash.lastValidBlockHeight
+  const executeResponse = await fetch("http://localhost:3001/api/execute-swap", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      swapTransaction: Buffer.from(transaction.serialize()).toString("base64")
+    })
   })
 
-  return signature
+  if (!executeResponse.ok) {
+    throw new Error("Failed to execute swap")
+  }
+
+  const executeData = await executeResponse.json()
+  return executeData.txId
 }
