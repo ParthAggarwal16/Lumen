@@ -14,7 +14,7 @@ interface SendModalProps {
   onSuccess: () => void
 }
 
-export default function SendModal({ wallet, onclose, onSuccess }: SendModalProps) {
+export default function SendModal({ wallet, onclose }: SendModalProps) {
   const [recipient, setRecipient] = useState("")
   const [amount, setAmount] = useState("")
   const [error, setError] = useState("")

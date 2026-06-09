@@ -1,8 +1,9 @@
 import { useSolanaBalance } from "../src/utils/solanaBalance"
 import { Eye, EyeOff } from "lucide-react"
 import Button from "./button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SendModal from "../components/sendModal.tsx"
+import { toast } from "sonner"
 
 interface WalletCardProps {
   wallet: {
@@ -20,6 +21,12 @@ export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: Wal
   const [refreshKey, setRefreshKey] = useState(0)
   const { loading, balance, error, usdcBalance } = useSolanaBalance(wallet.publicKey, refreshKey)
   const [isSendModalOpen, setIsSendModalOpen] = useState(false)
+
+  useEffect(() => {
+    if (error && error.includes("Rate limited")) {
+      toast.error("Rate limited. Please wait a moment.")
+    }
+  }, [error])
 
   return (
     <div className="border border-lumen-border bg-lumen-surface rounded-2xl p-5 font-plex">
@@ -50,7 +57,7 @@ export function WalletCard({ wallet, index, isVisible, onToggleVisibility }: Wal
         </p>
 
         <p className="text-lumen-text">
-          USDC: {loading ? "Loading..." : `${usdcBalance} USDC`}
+          USDC: {loading ? "Loading..." : `${usdcBalance ?? 0} USDC`}
         </p>
       </div>
       <Button className="mt-4" onClick={() => setIsSendModalOpen(true)}>
