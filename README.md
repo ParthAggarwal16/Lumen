@@ -60,7 +60,7 @@ Currently deployed on **Devnet**. Get test SOL from [Solana Devnet Faucet](https
 
 ## Deployment
 
-Live at: [wallet-kosh.vercel.app](https://wallet-kosh.vercel.app/)
+Live at: [lumen-vzkz](https://lumen-vzkz.vercel.app/)
 
 ## Security
 
