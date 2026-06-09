@@ -20,7 +20,7 @@ export default function Home() {
             </h1>
 
             <p className="text-xl text-zinc-400 max-w-xl leading-relaxed italic mb-4">
-              A web based crypto wallet built on top of solana
+              A web based crypto wallet built on top of solana (Currently on devnet)
             </p>
           </motion.div>
         )}
